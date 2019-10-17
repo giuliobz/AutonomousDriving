@@ -1,0 +1,41 @@
+TRAIN:
+
+depth
+
+    python main.py --train_path=/home/biondibazzanti/AutonomousDriving/Pytorch/CSV_file/depth/train/train_5_server_sequence_d.csv --valid_path=/home/biondibazzanti/AutonomousDriving/Pytorch/CSV_file/depth/validation/validation_5_server_sequence_d.csv --weight_path=/home/biondibazzanti/weights/ --epochs=1000 --val_period=20 --len_seq=5 --num_layers=3 --hidden_dim=256 --batch_size=15
+
+no_depth
+
+    5)  python main.py --train_path=/home/biondibazzanti/AutonomousDriving/Pytorch/CSV_file/nodepth/train/train_5_sequence.csv --valid_path=/home/biondibazzanti/AutonomousDriving/Pytorch/CSV_file/nodepth/validation/validation_5_sequence.csv --weight_path=/home/biondibazzanti/weights/ --epochs=1000 --val_period=20 --len_seq=5 --num_layers=3 --hidden_dim=256 --batch_size=15
+    30) python main.py --train_path=/home/biondibazzanti/AutonomousDriving/Pytorch/CSV_file/nodepth/train/train_30_sequence.csv --valid_path=/home/biondibazzanti/AutonomousDriving/Pytorch/CSV_file/nodepth/validation/validation_30_sequence.csv --weight_path=/home/biondibazzanti/weights/ --epochs=1010 --val_period=1 --len_seq=30 --num_layers=2 --hidden_dim=256 --batch_size=10 --lr=0.001 --dec_per=30
+    --------- EXPERIMENTAL MAIN -------------
+
+    30) python exp_main.py --train_path=/home/biondibazzanti/AutonomousDriving/Pytorch/CSV_file/nodepth/train/train_30_sequence_pr2.csv --valid_path=/home/biondibazzanti/AutonomousDriving/Pytorch/CSV_file/nodepth/train/train_30_sequence_pr2.csv --weight_path=/home/biondibazzanti/weights/ --epochs=1000 --val_period=1
+
+    ------------------------------------------
+
+TEST:
+
+depth:
+python exp_main.py --train_path=/home/biondibazzanti/AutonomousDriving/Pytorch/CSV_file/nodepth/train/train_30_sequence_pr2.csv --valid_path=/home/biondibazzanti/AutonomousDriving/Pytorch/CSV_file/nodepth/train/train_30_sequence_pr2.csv --weight_path=/home/biondibazzanti/weights/ --epochs=1000 --val_period=1
+    python main.py --test_path=/home/biondibazzanti/AutonomousDriving/Pytorch/CSV_file/depth/test/test_5_server_sequence_d.csv --batch_size=15 --len_seq=5 --hidden_dim=256 --num_layers=3
+
+no_depth:
+
+    python main.py --test_path=/home/biondibazzanti/AutonomousDriving/Pytorch/CSV_file/nodepth/test/test_30_sequence.csv --batch_size=15 --len_seq=30 --hidden_dim=256 --num_layers=2 --model_path=/home/biondibazzanti/weights/weight_260_lr_0.01_15/weight_38_425.232177734375.pth 
+
+    --------- EXPERIMENTAL MAIN -------------
+
+    python exp_main.py --test_path=/home/biondibazzanti/AutonomousDriving/Pytorch/CSV_file/nodepth/train/train_30_sequence_pr4.csv --batch_size=1 --len_seq=30 --model_path=/home/biondibazzanti/weights/weight_1001_lr_0.01_10/weight_262799.875_987.pth 
+
+    ------------------------------------------
+
+
+apprendimenti:
+
+tmux 0: depth con giusta normalizzazione
+
+tmux1: classico 5 frame con 10 di dec period
+
+tmux10: classico 5 frame con 0.4 di dropout ovunque
+
