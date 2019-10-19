@@ -1,5 +1,3 @@
-from tools.create_csv_file  import crete_csv_sequence
-from utils.read_csv         import load_data_multiframe_nd
 from utils.utilities        import initialize_model, load_dataset
 import torch, argparse, os
 from models.train           import train
@@ -27,7 +25,7 @@ def main():
     parser.add_argument("--epochs",         dest="epochs",              default=200,                             help="number of epochs")
     parser.add_argument("--val_period",     dest="period",              default=1,                               help="choose when use the validation")
     parser.add_argument("--device",         dest="device",              default=0,                               help="choose GPU")
-    parser.add_argument("--moel_type",           dest="type",                default='single',                        help="define the model to use: sigle-frame, multi-frame or depth")
+    parser.add_argument("--moel_type",      dest="type",                default='single',                        help="define the model to use: sigle-frame, multi-frame or depth")
  
     args                = parser.parse_args()
 
