@@ -41,5 +41,5 @@ python models/main.py   --trest_path = path to the test csv
                              
 ```
 
-At the end of the test job is created a csv file containing the prediction, the ground truth and the path to the image and save int test_results. This file will be used to [create the video](videos/README.md)
+At the end of the test job is created a csv file containing the prediction, the ground truth and the path to the image and save int test_results. This file will be used to create the video.
 
