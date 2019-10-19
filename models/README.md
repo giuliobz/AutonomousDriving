@@ -30,7 +30,7 @@ During the train is create the tensorboard file, saved in **tensorboard_runs**, 
 tensorboard — logdir=tensorboard_runs/ — port 6006
 ```
 
-## Testng  Job
+## Testing  Job
 
 Like is describe previously for the Training Job, for the Test we have to use the same command:
 
@@ -41,5 +41,5 @@ python models/main.py   --trest_path = path to the test csv
                              
 ```
 
-At the end of the test job is created a csv file containing the prediction, the ground truth and the path to the image and save int test_results. This file will be used to [create the video](./files/video_creation.md)
+At the end of the test job is created a csv file containing the prediction, the ground truth and the path to the image and save int test_results. This file will be used to [create the video](videos/README.md)
 
