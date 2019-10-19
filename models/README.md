@@ -27,7 +27,7 @@ The only things that change in using the depth model are the train and valid pat
 During the train is create the tensorboard file, saved in **tensorboard_runs**, wich the user can see with the tensorboard command:
 
 ```bash
-tensorboard — logdir=tensorboard_runs/ — port 6006
+tensorboard --logdir=tensorboard_runs/ --port 6006
 ```
 
 ## Testing  Job
