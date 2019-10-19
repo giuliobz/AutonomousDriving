@@ -1,9 +1,16 @@
 import os, cv2, shutil, argparse
 from PIL import Image
+from config.config import cfg
 
 SCALE_PERCENT = 12.5
 
-def adjustImages(input_path, output_path, type):
+def adjustImages(data_type):
+
+    dir_name = os.path.dirname(os.path.abspath('__file__'))
+    
+    input_path = dir_name + cfg.DATASET_PATH['real'] + data_type + '/'
+    output_path = dir_name + cfg.DATASET_PATH['modify'] + data_type + '/'
+    
     num_seq = len(os.listdir(input_path))
     i = 1
     output = output_path + type + "/"
@@ -47,10 +54,16 @@ def adjustImages(input_path, output_path, type):
             print('*' * 100)
             i += 1
 
-def adjustDepth(input_path, output_path, type):
+def adjustDepth(input_path, output_path, data_type):
+
+    dir_name = os.path.dirname(os.path.abspath(__file__))
+
+    input_path = dir_name + cfg.DATASET_PATH['real'] + data_type + '/'
+    output_path = dir_name + cfg.DATASET_PATH['modify'] + data_type + '/'
+    
+
     num_seq = len(os.listdir(input_path))
     i = 1
-    output = output_path + type + "/"
 
     if not os.path.exists(output):
         os.makedirs(output)
@@ -89,35 +102,16 @@ def adjustDepth(input_path, output_path, type):
         print('*' * 100)
         i+=1
 
-def RGBA_to_RGB(input_image):
-    for folder in os.listdir(input_image):
-        out = input_image + folder + "/left/"
-
-        if not os.path.exists(out):
-            os.makedirs(out)
-        i = 1
-        for image in os.listdir(input_image + folder + "/RGBA/"):
-            png = Image.open(input_image + folder + "/RGBA/" + image)
-            background = Image.new("RGB", png.size, (255, 255, 255))
-            background.paste(png, mask=png.split()[3])
-            background.save(out + "left{number:06}.png".format(number=i))
-            i += 1
-
 
 def main():
 
     parser = argparse.ArgumentParser(description="Compare prediction in video")
-    parser.add_argument("--input_directory",     dest="input",               default=None,                            help="path of the input directory")
-    parser.add_argument("--output_directory",    dest="output",              default=None,                            help="path of the output directory")
-    parser.add_argument("--type",                dest='type',                default=None,                            help="specify the type of the folder of the image: train - test - validation")
+    parser.add_argument("--type",                dest='data_type',                default=None,        help="specify the type of the image folder: train - test - validation")
     
     args = parser.parse_args()
-    input_directory = args.input
-    output_image = args.output
-    tipo = args.type
 
-    adjustImages(input_directory + tipo + "/", output_image, tipo)
-    adjustDepth(input_directory + tipo + "/", output_image, tipo)
+    adjustImages(data_type = args.data_type)
+    adjustDepth(data_type = args.data_type)
 
 if __name__ == '__main__':
     main()

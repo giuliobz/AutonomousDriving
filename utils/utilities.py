@@ -85,11 +85,12 @@ def initialize_model(model_type, cfg, mode):
         len_seq = cfg.TRAIN.LEN_SEQUENCES
     else:
         batch_size = cfg.TEST.BATCH_SIZE
-        len_seq = cfg.TEST.LEN_SEQUENCE
+        len_seq = cfg.TEST.LEN_SEQUENCES
 
     model = NET(len_seq=len_seq, batch_size=batch_size, hidden_dimension=cfg.DIMENSION[model_type], num_layers=cfg.LAYERS, in_channels=cfg.IN_CHANNELS[model_type])
  
     criterion = nn.MSELoss()
+
     if mode == 'train':
         
         if cfg.TRAIN.OPTIMIZER == 'Adam':
@@ -99,7 +100,11 @@ def initialize_model(model_type, cfg, mode):
         elif cfg.TRAIN.OPTIMIZER == 'RMS':
             optimizer = torch.optim.RMSprop(model.parameters(), lr=cfg.TRAIN.LEARNING_RATE, alpha=cfg.TRAIN.ALPHA, momentum=cfg.TRAIN.MOMENTUM)
     
-    return model, criterion, optimizer
+        return model, criterion, optimizer
+
+    else:
+        
+        return model, criterion
 
 def load_dataset(len_sequence, model_type, train_path=None, valid_path=None, test_path=None):
     
@@ -123,11 +128,11 @@ def load_dataset(len_sequence, model_type, train_path=None, valid_path=None, tes
         print("Load Test Set")
 
         if model_type == 'multi':
-            imm_test, test_coordinates, image_path = load_data_multiframe(test_path, len_sequence, 'test')
+            imm_test, test_coordinates, image_path = load_data_multiframe(test_path, len_sequence)
         elif model_type == 'depth':
-            imm_test, test_coordinates, image_path = load_data_depth(test_path, len_sequence, 'test')
+            imm_test, test_coordinates, image_path = load_data_depth(test_path, len_sequence)
         elif model_type == 'single':
-            imm_test, test_coordinates, image_path = load_data_singleframe(test_path, len_sequence, 'test')
+            imm_test, test_coordinates, image_path = load_data_singleframe(test_path, len_sequence)
 
         test_images = np.moveaxis(imm_test, -1, 1)
 

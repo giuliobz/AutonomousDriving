@@ -1,15 +1,17 @@
 ## Recommended Directory Structure for Training and Evaluation
 
-The Daset is required to have the following structure:
-
+Be sure you have the same dataset structure for both original and processed data. These structures will be used in the testing phase.
+Another recommendation : call **Dataset** the processed one and **Dataset_real** the original one and put them in the same folder like this:
 
 ```bash
 
+image_dataset
+│
 ├── Dataset                                    
 │   ├── train  
 │       ├── seq1
-│           ├── left   # Contain the RGB frame image
-│           ├── depth  # Contain the Depth frame image
+│           ├── left   
+│           ├── depth 
 │   ├── valid 
 │       ├── seq2
 │           ├── left
@@ -18,6 +20,12 @@ The Daset is required to have the following structure:
 │       ├── seq3
 │           ├── left
 │           ├── depth 
+│
+├── Dataset_real                                    
+│   ├── train  
+│       ├── seq1
+│           ├── left  
+│           ├── depth  
 └── ...
 
 ```
@@ -33,31 +41,10 @@ The Dataset used for the experiment is preprocessed and saved with the structure
 
 ```bash
 
-python tools/preprocess.py  --input_path=input images direcotry
-                            --output_directory= output image directory
-                            --type= folder type 
+python tools/preprocess.py  --type= specify the type of the image folder: train - test - validation
 
 ```
 
-Be sure you have the same dataset structure for both original and processed data. These structures will be used in the testing phase.
-Another recommendation : call **Dataset** the processed one and **Dataset_real** the original one and put them in the same folder like this:
 
-```bash
-
-image_dataset
-│
-├── Dataset                                    
-│   ├── train  
-│       ├── seq1
-│           ├── left   
-│           ├── depth 
-├── Dataset_real                                    
-│   ├── train  
-│       ├── seq1
-│           ├── left  
-│           ├── depth  
-└── ...
-
-```
 
 

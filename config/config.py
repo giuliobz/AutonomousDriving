@@ -20,8 +20,9 @@ cfg = __C
 __C.SAVE_WEIGHT_PATH = { 'depth' : "/saved_models/depth/", 'multi' : "/saved_models/multi_frame/", 'single' :  "/saved_models/single_frame/"}
 __C.SAVE_RESULTS_PATH = { 'depth' : "/test_results/depth_results/", 'multi' : "/test_results/multi_frame_results/", 'single' :  "/test_results/single_frame_results/"}
 __C.SAVE_VIDEO_PATH = {'depth' : "/vides/depth_video/", 'multi' : "/videos/multi_frame_video/", 'single' :  "/videos/single_frame_video/"}
-__C.TENSORBOARD_PATH = "/tensorboard_runs/"
-__C.DATASET_PATH = "/csv_dataset/"
+__C.TENSORBOARD_PATH = { 'depth' : "/tensorboard_runs/depth/", 'multi' : "/tensorboard_runs/multi_frame/", 'single' :  "/tensorboard_runs/single_frame/"}
+__C.DATASET_PATH = {'modify' : "/datasets/image_dataset/Dataset/", 'real' : "/datasets/image_dataset/Dataset_real/"}
+__C.CSV_DATASET_PATH = "/datasets/csv_dataset/"
 #####################################################################################################################################
 #
 # TRAINING PARAMETERS

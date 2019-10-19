@@ -25,7 +25,7 @@ def main():
     parser.add_argument("--epochs",         dest="epochs",              default=200,                             help="number of epochs")
     parser.add_argument("--val_period",     dest="period",              default=1,                               help="choose when use the validation")
     parser.add_argument("--device",         dest="device",              default='0',                               help="choose GPU")
-    parser.add_argument("--model_type",      dest="type",               default='single',                        help="define the model to use: sigle-frame, multi-frame or depth")
+    parser.add_argument("--model_type",      dest="model_type",               default='single',                        help="define the model to use: sigle-frame, multi-frame or depth")
  
     args                = parser.parse_args()
 
@@ -48,8 +48,8 @@ def main():
             timestamp = datetime.timestamp(now)
             dir_name = os.path.dirname(os.path.abspath(__file__))
 
-            save_weight_path = dir_name  + cfg.SAVE_WEIGHT_PATH[args.type] + 'weight_' + args.epochs + '_lenseq_' + str(cfg.TRAIN.LEN_SEQUENCES) + '_' + str(timestamp)
-            tensor_board_path = dir_name  + cfg.TENSORBOARD_PATH + "weight_" + args.epochs + '_lenseq_' + str(cfg.TRAIN.LEN_SEQUENCES) + '_' + str(timestamp)
+            save_weight_path = dir_name  + cfg.SAVE_WEIGHT_PATH[args.model_type] + 'weight_' + args.epochs + '_lenseq_' + str(cfg.TRAIN.LEN_SEQUENCES) + '_' + str(timestamp)
+            tensor_board_path = dir_name  + cfg.TENSORBOARD_PATH[args.model_type] + "weight_" + args.epochs + '_lenseq_' + str(cfg.TRAIN.LEN_SEQUENCES) + '_' + str(timestamp)
 
             print()
             print("SUMMARIZE : ")
@@ -63,12 +63,12 @@ def main():
             print("learning rate: {}"       .format(cfg.TRAIN.LEARNING_RATE))
             print("GPU device: {}"          .format(args.device))
             print("len_seq: {}"             .format(cfg.TRAIN.LEN_SEQUENCES))
-            print("hidden_dimension: {}"    .format(cfg.DIMENSION[args.type]))
+            print("hidden_dimension: {}"    .format(cfg.DIMENSION[args.model_type]))
             print("Loss Function: {}"       .format(cfg.TRAIN.LOSS))
             print("Optimizer: {}"           .format(cfg.TRAIN.OPTIMIZER))
             print("Decrement period: {}"    .format(cfg.TRAIN.DEC_PERIOD))
             print("num_layers: {}"          .format(cfg.LAYERS))
-            print("you are working with {} model"          .format(args.type))
+            print("you are working with {} model"          .format(args.model_type))
             print("To use tensorboardX log this --logdir : " + tensor_board_path)
             print()
             
@@ -78,9 +78,9 @@ def main():
             if not os.path.exists(tensor_board_path):
                 os.mkdir(tensor_board_path)
 
-            train_images, valid_images, train_coordinates, valid_coordinates = load_dataset(len_sequence=cfg.TRAIN.LEN_SEQUENCES, model_type=args.type, train_path=args.train, valid_path=args.valid)
+            train_images, valid_images, train_coordinates, valid_coordinates = load_dataset(len_sequence=cfg.TRAIN.LEN_SEQUENCES, model_type=args.model_type, train_path=args.train, valid_path=args.valid)
 
-            model, criterion, optimizer = initialize_model(model_type=args.type, cfg=cfg, mode='train')
+            model, criterion, optimizer = initialize_model(model_type=args.model_type, cfg=cfg, mode='train')
 
             train_data  = TensorDataset(torch.from_numpy(train_images), torch.from_numpy(train_coordinates))
             val_data    = TensorDataset(torch.from_numpy(valid_images), torch.from_numpy(valid_coordinates))
@@ -107,22 +107,24 @@ def main():
             print("test data path: {}"      .format(args.test))
             print("model path: {}"          .format(args.model))
             print("batch size: {}"          .format(cfg.TRAIN.BATCH_SIZE))
-            print("hidden dimension: {}"    .format(cfg.DIMENTION[args.type]))
+            print("hidden dimension: {}"    .format(cfg.DIMENSION[args.model_type]))
             print("GPU device: {}"          .format(args.device))
-            print("len_seq: {}"             .format(cfg.LEN_SEQUENCES))
+            print("len_seq: {}"             .format(cfg.TEST.LEN_SEQUENCES))
             print("Loss Function: {}"       .format(cfg.TRAIN.LOSS))
-            print("you are working with {} model"          .format(args.type))
+            print("you are working with {} model"          .format(args.model_type))
             print()
 
-            test_images, test_coordinates, image_path = load_dataset(test_path=args.test, len_sequence=cfg.LEN_SEQUENCES)
+            test_images, test_coordinates, image_path = load_dataset(test_path=args.test, len_sequence=cfg.TEST.LEN_SEQUENCES, model_type=args.model_type)
 
-            model, criterion, _ = initialize_model(model_type=args.type, cfg=cfg, mode='test')
+            model, criterion = initialize_model(model_type=args.model_type, cfg=cfg, mode='test')
             
             test_data = TensorDataset(torch.from_numpy(test_images), torch.from_numpy(test_coordinates))
 
             test_loader = DataLoader(test_data, shuffle=cfg.TEST.SHUFFLE, batch_size=cfg.TEST.BATCH_SIZE, drop_last=True)
 
-            test(model=model, criterion=criterion, model_path=args.model, test_loader=test_loader, paths=image_path, dev=args.device, model_type=args.type)
+            dir_name = os.path.dirname(os.path.abspath(__file__))
+
+            test(model=model, criterion=criterion, model_path=args.model, dir_name=dir_name, test_loader=test_loader, paths=image_path, dev=args.device, model_type=args.model_type)
 
 
 if __name__ == '__main__':

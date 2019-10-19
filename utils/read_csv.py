@@ -19,9 +19,13 @@ def reshape_depth(img):
 
     return depth
 
-def load_image(image_file, data_dir, depth=False):
+def load_image(image_file, data_dir=None, depth=False):
 
-    img = cv2.imread(os.path.join(data_dir, image_file.strip()), -1)
+    if data_dir != None:
+        img = cv2.imread(os.path.join(data_dir, image_file.strip()), -1)
+    else:
+        img = cv2.imread(image_file.strip(), -1)
+        
     if depth == False: 
         img = cv2.cvtColor(img, cv2.COLOR_RGBA2RGB)
     elif depth == True:
@@ -162,16 +166,15 @@ def load_data_multiframe(dir, len_sequence):
     coordinates = []
     paths = []
     for seq in tqdm.tqdm(sequence.keys()):
-        if 'cord'not in seq:
+        if 'cord' not in seq:
             i = 4
-            data_dir = data_dir + seq + '/'
             while(i < len(sequence[seq])):
                 paths.append(sequence[seq][i])
-                img = load_image(image_file = sequence[seq][i - 4], data_dir = data_dir) 
-                tmp = np.concatenate((img, load_image(image_file = sequence[seq][i - 3], data_dir = data_dir)), axis=2)
-                tmp = np.concatenate((tmp, load_image(image_file = sequence[seq][i - 2], data_dir = data_dir)), axis=2)
-                tmp = np.concatenate((tmp, load_image(image_file = sequence[seq][i - 1], data_dir = data_dir)), axis=2)
-                images.append(np.concatenate((tmp, load_image(image_file = sequence[seq][i], data_dir = data_dir)), axis=2))
+                img = load_image(image_file = sequence[seq][i - 4]) 
+                tmp = np.concatenate((img, load_image(image_file = sequence[seq][i - 3])), axis=2)
+                tmp = np.concatenate((tmp, load_image(image_file = sequence[seq][i - 2])), axis=2)
+                tmp = np.concatenate((tmp, load_image(image_file = sequence[seq][i - 1])), axis=2)
+                images.append(np.concatenate((tmp, load_image(image_file = sequence[seq][i])), axis=2))
                 coordinates.append(sequence[seq + '_cord'][i])
                 i += 1
                 

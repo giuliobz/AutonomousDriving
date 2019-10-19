@@ -11,6 +11,7 @@ Run:
 - [Training and Testing](models/README.md)
 - [Video creation](videos/README.md)
 
+All the settings, path and configurations are in **config/config.py** file. Please read all section to make sure all work correctly.
 
 ## Dependacies
 

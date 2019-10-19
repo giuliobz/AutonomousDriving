@@ -3,9 +3,8 @@ from utils.trajectory_images    import save_video
 from config.config              import cfg 
 import numpy                    as np
 
-def test(model, criterion, model_path, test_loader, paths, dev, model_type):
+def test(model, criterion, model_path, dir_name, test_loader, paths, dev, model_type):
     
-    dir_name = os.path.dirname(os.path.abspath(__file__))
     num_correct = 0
     test_losses = []
     distances = []
@@ -58,4 +57,4 @@ def test(model, criterion, model_path, test_loader, paths, dev, model_type):
     print('*' * 100)
     print('Starting Video Creation')
 
-    save_video(video_name=video_name, csv_file=csv_file, len_seq=cfg.TEST.LEN_SEQUENCES)
+    save_video(video_name=video_name, csv_path=csv_file, len_seq=cfg.TEST.LEN_SEQUENCES, model_type=model_type)
