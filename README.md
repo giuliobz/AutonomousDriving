@@ -5,6 +5,7 @@ The aim of this project is to predict the trajectory from a series of frames to 
 ## Table of contents
 
 Run:
+
 -[Preprocessing](datasets/image_dataset/README.md)
 -[Create csv files](datasets/csv_dataset/README.md)
 -[Training and Testing](models/README.md)
