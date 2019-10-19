@@ -83,10 +83,13 @@ def initialize_model(model_type, cfg, mode):
     if mode == 'train':
         batch_size = cfg.TRAIN.BATCH_SIZE
         len_seq = cfg.TRAIN.LEN_SEQUENCES
-    else:
+    elif mode == 'test':
         batch_size = cfg.TEST.BATCH_SIZE
         len_seq = cfg.TEST.LEN_SEQUENCES
-
+    else:
+        print('Error occurrent')
+        exit()
+    
     model = NET(len_seq=len_seq, batch_size=batch_size, hidden_dimension=cfg.DIMENSION[model_type], num_layers=cfg.LAYERS, in_channels=cfg.IN_CHANNELS[model_type])
  
     criterion = nn.MSELoss()
@@ -124,7 +127,9 @@ def load_dataset(len_sequence, model_type, train_path=None, valid_path=None, tes
         valid_images = np.moveaxis(imm_valid, -1, 1)
 
         return train_images, valid_images, train_coordinates, valid_coordinates
+
     else:
+        
         print("Load Test Set")
 
         if model_type == 'multi':

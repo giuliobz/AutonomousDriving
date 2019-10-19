@@ -37,12 +37,8 @@ def test(model, criterion, model_path, dir_name, test_loader, paths, dev, model_
 
                 test_losses.append(test_loss.item())
                 
-                starting_point = 0
-                
-                if model_type == 'multi':
-                    starting_point = 4
-
-                for i in range(starting_point, len(output)):
+                for i in range(len(output)):
+                    
                     predicted = output[i].detach().numpy()
                     real = labels[i].detach().numpy()
                     path = paths[current_path].replace("Dataset","Dataset_real")

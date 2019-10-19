@@ -69,8 +69,8 @@ __C.TRAIN.DEC_PERIOD = 20
 # Shuffle: indicates if the images have to be shuffle 
 #
 __C.TRAIN.LEN_SEQUENCES = 30
-__C.TRAIN.SHUFFLE_T = 'True'
-__C.TRAIN.SHUFFLE_V = 'False'
+__C.TRAIN.SHUFFLE_T = True
+__C.TRAIN.SHUFFLE_V = False
 
 
 #
@@ -126,7 +126,7 @@ __C.TEST.LOSS = 'MSE'
 # Shuffle: indicates if the images have to be shuffle
 # 
 __C.TEST.LEN_SEQUENCES = 30
-__C.TEST.SHUFFLE = 'False'
+__C.TEST.SHUFFLE = False
 
 ######################################################################################################################################
 
