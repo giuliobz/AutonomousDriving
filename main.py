@@ -24,11 +24,10 @@ def main():
     parser.add_argument("--model_path",     dest="model",               default=None,                            help="path of the model weight")
     parser.add_argument("--epochs",         dest="epochs",              default=200,                             help="number of epochs")
     parser.add_argument("--val_period",     dest="period",              default=1,                               help="choose when use the validation")
-    parser.add_argument("--device",         dest="device",              default=0,                               help="choose GPU")
-    parser.add_argument("--moel_type",      dest="type",                default='single',                        help="define the model to use: sigle-frame, multi-frame or depth")
+    parser.add_argument("--device",         dest="device",              default='0',                               help="choose GPU")
+    parser.add_argument("--model_type",      dest="type",               default='single',                        help="define the model to use: sigle-frame, multi-frame or depth")
  
     args                = parser.parse_args()
-
 
     if (args.train == None and args.test == None):
         print("you have to decide : do train or test")
@@ -39,17 +38,19 @@ def main():
     ####################################################################################################################
     if args.test == None:
 
-        if (args.valid == None or args.weight == None):
-            print("please insert valid  or weight path ")
+        if (args.valid == None):
+            print("please insert valid")
             exit()
         else:
 
             # current date and time
             now = datetime.now()
             timestamp = datetime.timestamp(now)
+            dir_name = os.path.dirname(os.path.abspath(__file__))
 
-            save_weight_path = cfg.SAVE_WEIGHT_PATH[args.type] + 'weight_' + args.epochs + '_lenseq_' + args.sequence + '_' + str(timestamp)
-            
+            save_weight_path = dir_name  + cfg.SAVE_WEIGHT_PATH[args.type] + 'weight_' + args.epochs + '_lenseq_' + str(cfg.TRAIN.LEN_SEQUENCES) + '_' + str(timestamp)
+            tensor_board_path = dir_name  + cfg.TENSORBOARD_PATH + "weight_" + args.epochs + '_lenseq_' + str(cfg.TRAIN.LEN_SEQUENCES) + '_' + str(timestamp)
+
             print()
             print("SUMMARIZE : ")
             print()
@@ -62,17 +63,20 @@ def main():
             print("learning rate: {}"       .format(cfg.TRAIN.LEARNING_RATE))
             print("GPU device: {}"          .format(args.device))
             print("len_seq: {}"             .format(cfg.TRAIN.LEN_SEQUENCES))
-            print("hidden_dimension: {}"    .format(cfg.DIMENTION[args.type]))
+            print("hidden_dimension: {}"    .format(cfg.DIMENSION[args.type]))
             print("Loss Function: {}"       .format(cfg.TRAIN.LOSS))
             print("Optimizer: {}"           .format(cfg.TRAIN.OPTIMIZER))
             print("Decrement period: {}"    .format(cfg.TRAIN.DEC_PERIOD))
-            print("num_layers: {}"          .format(cfg.TRAIN.LAYERS))
+            print("num_layers: {}"          .format(cfg.LAYERS))
             print("you are working with {} model"          .format(args.type))
-            print("To use tensorboardX log this --logdir : " + cfg.TENSORBOARD_PATH + "/weight_" + '_lenseq_' + str(args.sequence) + '_' + str(timestamp))
+            print("To use tensorboardX log this --logdir : " + tensor_board_path)
             print()
             
             if not os.path.exists(save_weight_path):
                 os.mkdir(save_weight_path)
+
+            if not os.path.exists(tensor_board_path):
+                os.mkdir(tensor_board_path)
 
             train_images, valid_images, train_coordinates, valid_coordinates = load_dataset(len_sequence=cfg.TRAIN.LEN_SEQUENCES, model_type=args.type, train_path=args.train, valid_path=args.valid)
 
@@ -84,7 +88,7 @@ def main():
             train_loader    = DataLoader(train_data,    shuffle=cfg.TRAIN.SHUFFLE_T,   batch_size=cfg.TRAIN.BATCH_SIZE, drop_last=True)
             val_loader      = DataLoader(val_data,      shuffle=cfg.TRAIN.SHUFFLE_V,   batch_size=cfg.TRAIN.BATCH_SIZE, drop_last=True)
 
-            train(model=model, criterion=criterion, optimizer=optimizer, train_loader=train_loader, val_loader=val_loader, epochs=args.epochs, val_period=args.period, save_weights=save_weight_path, dev=args.device, cfg=cfg)
+            train(model=model, criterion=criterion, optimizer=optimizer, train_loader=train_loader, val_loader=val_loader, epochs=int(args.epochs), val_period=int(args.period), save_weights=save_weight_path, event_log_path=tensor_board_path, dev=args.device, cfg=cfg)
 
 
     ####################################################################################################################

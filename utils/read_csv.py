@@ -150,9 +150,7 @@ def load_data_multiframe(dir, len_sequence):
 
     for i, img in tqdm.tqdm(enumerate(path)):
         seq = re.search('/s(.+?)/', img)
-        print(seq)
         seq = seq.group(0)
-        print(seq.replace("/", ""))
         if seq in sequence.keys():
             sequence[seq].append(img)
             sequence[seq + '_cord'].append(convert_to_vector(string = data_df["future_point"][i]))

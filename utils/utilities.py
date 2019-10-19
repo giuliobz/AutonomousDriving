@@ -2,8 +2,8 @@ import torch, math, csv, cv2
 import numpy as np
 import matplotlib.pyplot as plt
 import torch.nn as nn
-from models.model.model import NET
-from utils.read_csv import load_data_multiframe_nd
+from models.model import NET
+from utils.read_csv import load_data_multiframe, load_data_depth, load_data_singleframe
 from torch.autograd import Variable
 from torchvision.utils import make_grid
 from tensorboard.backend.event_processing.event_accumulator import EventAccumulator
@@ -78,16 +78,16 @@ def pixel2coordinate(output, label, depth_path):
 
 ##############################################################################################################
 
-def itialize_model(model_type, cfg, mode):
+def initialize_model(model_type, cfg, mode):
 
     if mode == 'train':
         batch_size = cfg.TRAIN.BATCH_SIZE
-        len_seq = cfg.TRAIN.LEN_SEQUENCE
+        len_seq = cfg.TRAIN.LEN_SEQUENCES
     else:
         batch_size = cfg.TEST.BATCH_SIZE
         len_seq = cfg.TEST.LEN_SEQUENCE
 
-    model = NET(len_seq=len_seq, batch_size=batch_size, hidden_dimension=cfg.DIMENTION[model_type], num_layers=cfg.LAYERS, in_channels=cfg.IN_CHANNELS[model_type])
+    model = NET(len_seq=len_seq, batch_size=batch_size, hidden_dimension=cfg.DIMENSION[model_type], num_layers=cfg.LAYERS, in_channels=cfg.IN_CHANNELS[model_type])
  
     criterion = nn.MSELoss()
     if mode == 'train':
@@ -106,18 +106,29 @@ def load_dataset(len_sequence, model_type, train_path=None, valid_path=None, tes
     if test_path == None:
         print("Load Train Set and vaidation set")
         if model_type == 'multi':
-            imm_train, train_coordinates,  _ = load_data_multiframe_nd(train_path, len_sequence)
-            imm_valid, valid_coordinates,  _ = load_data_multiframe_nd(valid_path, len_sequence)
+            imm_train, train_coordinates,  _ = load_data_multiframe(train_path, len_sequence)
+            imm_valid, valid_coordinates,  _ = load_data_multiframe(valid_path, len_sequence)
+        elif model_type == 'depth':
+            imm_train, train_coordinates,  _ = load_data_depth(train_path, len_sequence)
+            imm_valid, valid_coordinates,  _ = load_data_depth(valid_path, len_sequence)
+        elif model_type == 'single':
+            imm_train, train_coordinates,  _ = load_data_singleframe(train_path, len_sequence)
+            imm_valid, valid_coordinates,  _ = load_data_singleframe(valid_path, len_sequence)
  
         train_images = np.moveaxis(imm_train, -1, 1)
-        print(train_images.shape)
         valid_images = np.moveaxis(imm_valid, -1, 1)
-        print(valid_images.shape)
 
         return train_images, valid_images, train_coordinates, valid_coordinates
     else:
         print("Load Test Set")
-        imm_test, test_coordinates, image_path = load_data_multiframe_nd(test_path, len_sequence, 'test')
+
+        if model_type == 'multi':
+            imm_test, test_coordinates, image_path = load_data_multiframe(test_path, len_sequence, 'test')
+        elif model_type == 'depth':
+            imm_test, test_coordinates, image_path = load_data_depth(test_path, len_sequence, 'test')
+        elif model_type == 'single':
+            imm_test, test_coordinates, image_path = load_data_singleframe(test_path, len_sequence, 'test')
+
         test_images = np.moveaxis(imm_test, -1, 1)
 
         return test_images, test_coordinates, image_path

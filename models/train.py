@@ -10,14 +10,12 @@ from os.path                    import isfile, join
 import cv2
 from torchvision.utils          import make_grid
 
-def train(model, criterion, optimizer, train_loader, val_loader, epochs, val_period, save_weights, dev, cfg):
+def train(model, criterion, optimizer, train_loader, val_loader, epochs, val_period, save_weights, event_log_path, dev, cfg):
     
     limit = 1e-07
     global_min_val_loss = np.Inf
     iteration = 1
 
-    path_run = save_weights.split("/")
-    event_log_path = cfg.TENSORBOARD_RUNS + path_run[4]
     writer = SummaryWriter(event_log_path)
     val_losses = {}
     train_losses = {}
@@ -56,7 +54,7 @@ def train(model, criterion, optimizer, train_loader, val_loader, epochs, val_per
 
             # compute gradients and optimizer step
             loss.backward()
-            nn.utils.clip_grad_norm_(model.parameters(), cfg.TRAIN.GRADEINT_CLIP)
+            nn.utils.clip_grad_norm_(model.parameters(), cfg.TRAIN.GRADIENT_CLIP)
             optimizer.step()
 
         writer.add_scalar('Training/train_global_loss', sum(train_losses[i])/len(train_losses[i]), i + 1)

@@ -1,17 +1,17 @@
 import sys, os, math, csv, tqdm, torch
 from utils.trajectory_images    import save_video
-from utils.utilities            import create_weight_matrix, new_evaluation, evaluate_result
 from config.config              import cfg 
 import numpy                    as np
 
 def test(model, criterion, model_path, test_loader, paths, dev, model_type):
     
+    dir_name = os.path.dirname(os.path.abspath(__file__))
     num_correct = 0
     test_losses = []
     distances = []
     
-    csv_file = cfg.SAVE_RESULTS_PATH[model_type] + "summarize_test.csv"
-    video_name = cfg.SAVE_VIDEO_PATH[model_type] + "summarize_video.avi"
+    csv_file = dir_name + cfg.SAVE_RESULTS_PATH[model_type] + "summarize_test.csv"
+    video_name = dir_name + cfg.SAVE_VIDEO_PATH[model_type] + "summarize_video.avi"
     
     if os.path.exists(csv_file):
         os.remove(csv_file)
@@ -58,4 +58,4 @@ def test(model, criterion, model_path, test_loader, paths, dev, model_type):
     print('*' * 100)
     print('Starting Video Creation')
 
-    save_video(video_name=video_name, csv_file=csv_file, len_seq=cfg.TEST.LEN_SEQUENCE)
+    save_video(video_name=video_name, csv_file=csv_file, len_seq=cfg.TEST.LEN_SEQUENCES)

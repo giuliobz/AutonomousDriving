@@ -17,11 +17,11 @@ cfg = __C
 # DEFINE THE DIFFERENT PATH WHERE THE TREE MODEL WILL SAVE THE RESULT
 #
 #####################################################################################################################################
-__C.SAVE_WEIGHT_PATH = { 'depth' : "saved_models/depth/", 'multi' : "saved_models/multi_frame/", 'single' :  "saved_models/single_frame/"}
-__C.SAVE_RESULTS_PATH = { 'depth' : "test_results/depth_results/", 'multi' : "test_results/multi_frame_results/", 'single' :  "test_results/single_frame_results/"}
-__C.SAVE_VIDEO_PATH = {'depth' : "vides/depth_video/", 'multi' : "videos/multi_frame_video/", 'single' :  "videos/single_frame_video/"}
-__C.TENSORBOARD_PATH = "tensorboard_runs/"
-__C.DATASET_PATH = "csv_dataset/"
+__C.SAVE_WEIGHT_PATH = { 'depth' : "/saved_models/depth/", 'multi' : "/saved_models/multi_frame/", 'single' :  "/saved_models/single_frame/"}
+__C.SAVE_RESULTS_PATH = { 'depth' : "/test_results/depth_results/", 'multi' : "/test_results/multi_frame_results/", 'single' :  "/test_results/single_frame_results/"}
+__C.SAVE_VIDEO_PATH = {'depth' : "/vides/depth_video/", 'multi' : "/videos/multi_frame_video/", 'single' :  "/videos/single_frame_video/"}
+__C.TENSORBOARD_PATH = "/tensorboard_runs/"
+__C.DATASET_PATH = "/csv_dataset/"
 #####################################################################################################################################
 #
 # TRAINING PARAMETERS
@@ -57,7 +57,7 @@ __C.LAYERS = 2
 # Decrement period: number of epochs after that we decrement the learning rate
 # Gradient clipping: manca definizione
 #  
-__C.TRAIN.GRADINET_CLIP = 5
+__C.TRAIN.GRADIENT_CLIP = 5
 __C.TRAIN.BATCH_SIZE = 20
 __C.TRAIN.LEARNING_RATE = 0.1
 __C.TRAIN.DEC_PERIOD = 20
