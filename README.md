@@ -6,10 +6,10 @@ The aim of this project is to predict the trajectory from a series of frames to 
 
 Run:
 
--[Preprocessing](datasets/image_dataset/README.md)
--[Create csv files](datasets/csv_dataset/README.md)
--[Training and Testing](models/README.md)
--[Video creation](videos/README.md)
+- [Preprocessing](datasets/image_dataset/README.md)
+- [Create csv files](datasets/csv_dataset/README.md)
+- [Training and Testing](models/README.md)
+- [Video creation](videos/README.md)
 
 
 ## Dependacies
