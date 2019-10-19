@@ -5,17 +5,11 @@ The aim of this project is to predict the trajectory from a series of frames to 
 ## Table of contents
 
 Run:
-<<<<<<< HEAD
 -[Preprocessing](datasets/image_dataset/README.md)
 -[Create csv files](datasets/csv_dataset/README.md)
 -[Training and Testing](models/README.md)
 -[Video creation](videos/README.md)
-=======
-- [Preprocessing](datasets/image_dataset/README.md)
-- [Create csv files](datasets/csv_dataset/README.md)
-- [Training and Testing](models/README.md)
-- [Video creation](videos/README.md)
->>>>>>> 68caa4bffb4482a930dff17aa3ae2c9157420343
+
 
 ## Dependacies
 
