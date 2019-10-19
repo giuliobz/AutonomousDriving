@@ -1,5 +1,7 @@
-import csv, json, re, os, argparse
+import csv, json, re, os, argparse, sys
+sys.path.insert(1, os.path.dirname(os.path.abspath('__file__')))
 from config.config import cfg
+
 SCALE_PERCENT = 12.5
 K = float(SCALE_PERCENT / 100)
 offset = 60

@@ -1,4 +1,5 @@
-import os, cv2, shutil, argparse
+import os, cv2, shutil, argparse, sys
+sys.path.insert(1, os.path.dirname(os.path.abspath('__file__')))
 from PIL import Image
 from config.config import cfg
 
