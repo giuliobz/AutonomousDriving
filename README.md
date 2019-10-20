@@ -1,6 +1,8 @@
 # Autonomous Driving
 
-![](model.gif)
+<p align="center">
+  <img src="https://github.com/giuliobz/AutonomousDriving/blob/master/models.gif">
+</p>
 
 
 
