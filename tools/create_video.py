@@ -1,5 +1,5 @@
-    import argparse, os, sys
-    sys.path.insert(1, os.path.dirname(os.path.abspath('__file__')))
+import argparse, os, sys
+sys.path.insert(1, os.path.dirname(os.path.abspath('__file__')))
 from config.config import cfg
 from utils.trajectory_images import save_video
 

@@ -1,6 +1,9 @@
 # Autonomous Driving
 
-![](models.gif)
+<p align="center">
+    ![](models.gif)
+</p>
+
 
 The aim of this project is to predict the trajectory from a series of frames to emulate the autonomous drive in a radio controlled machine.
 
