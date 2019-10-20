@@ -1,6 +1,6 @@
 ## Recommended Directory Structure for Training and Evaluation
 
-Be sure you have the same dataset structure for both original and processed data. These structures will be used in the testing phase.
+You might have the same dataset structure for both original and processed data. These structures will be used in the testing phase.
 Another recommendation : call **Dataset** the processed one and **Dataset_real** the original one and put them in the same folder like this:
 
 ```bash
@@ -32,8 +32,8 @@ image_dataset
 
 Inside the left and depth folder is recommended to have:
 
-- left: is the folder contain the frames
-- trajectories.json: a json file where tehre are all the trajectory relative to the frames contained in the left folder
+- left: is the folder contain the RGB frames
+- trajectories.json: a json file where there are all the trajectories relative to the frames contained in the left folder
 
 ## Pre processing
 
