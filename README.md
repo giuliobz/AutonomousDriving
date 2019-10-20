@@ -1,7 +1,7 @@
 # Autonomous Driving
 
 <p align="center">
-    ![](models.gif)
+    <img width="460" height="300" src="model.gif">
 </p>
 
 
