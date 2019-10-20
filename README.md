@@ -1,7 +1,7 @@
 # Autonomous Driving
 
 <p align="center">
-  <img src="https://github.com/giuliobz/AutonomousDriving/blob/master/models.gif">
+  <img src="https://github.com/giuliobz/AutonomousDriving/blob/master/videos/models.gif ">
 </p>
 
 
