@@ -11,7 +11,7 @@ b = True
 def crete_csv_sequence(seq_path, depth, data_type, len_seq):
 
     dir_name = os.path.dirname(os.path.abspath('__file__'))
-    len_seq = int(len_seq)
+    
     if depth == 'True':
         save_path = dir_name + cfg.CSV_DATASET_PATH + 'depth/' + data_type + '/' + data_type  + '_' + str(len_seq) + '_sequence_d.csv'
     elif depth == 'False':
@@ -76,7 +76,7 @@ def main():
 
     args = parser.parse_args()
 
-    crete_csv_sequence(seq_path = args.input, depth = args.depth, data_type = args.data_type, len_seq = args.len_seq)
+    crete_csv_sequence(seq_path = args.input, depth = args.depth, data_type = args.data_type, len_seq = int(args.len_seq))
 
 
 if __name__=='__main__':

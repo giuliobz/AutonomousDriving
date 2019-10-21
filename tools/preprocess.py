@@ -10,7 +10,7 @@ def adjustImages(data_type):
     dir_name = os.path.dirname(os.path.abspath('__file__'))
     
     input_path = dir_name + cfg.DATASET_PATH['real'] + data_type + '/'
-    output_path = str(dir_name + cfg.DATASET_PATH['modify'] + data_type + '/')
+    output_path = dir_name + cfg.DATASET_PATH['modify'] + data_type + '/'
     
     num_seq = len(os.listdir(input_path))
     i = 1
@@ -21,7 +21,7 @@ def adjustImages(data_type):
     for seq in sorted(os.listdir(input_path)):
         if seq != ".DS_Store":
             image_path = input_path + seq + "/left/"
-            output = str(output_path) + seq + "/"
+            output = output_path + seq + "/"
 
             if not os.path.exists(output):
                 os.makedirs(output)
@@ -57,7 +57,7 @@ def adjustDepth(data_type):
     dir_name = os.path.dirname(os.path.abspath('__file__'))
 
     input_path = dir_name + cfg.DATASET_PATH['real'] + data_type + '/'
-    output_path = str(dir_name + cfg.DATASET_PATH['modify'] + data_type + '/')
+    output_path = dir_name + cfg.DATASET_PATH['modify'] + data_type + '/'
 
     num_seq = len(os.listdir(input_path))
     i = 1
