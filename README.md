@@ -7,8 +7,7 @@
 
 
 The aim of this project is to predict the trajectory from a series of frames to emulate the autonomous drive in a radio controlled machine.
-
-## Table of contents
+For more details [read the report](Report.pdf) and watch [the video in this link](https://www.dropbox.com/sh/c1vkzonmgs7p8dj/AADxyoHSPLqB_TsW7DxyKKpJa?dl=0).
 
 Run:
 
