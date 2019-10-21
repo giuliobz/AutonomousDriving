@@ -11,13 +11,13 @@ b = True
 def crete_csv_sequence(seq_path, depth, data_type, len_seq):
 
     dir_name = os.path.dirname(os.path.abspath('__file__'))
-
+    len_seq = int(len_seq)
     if depth == 'True':
         save_path = dir_name + cfg.CSV_DATASET_PATH + 'depth/' + data_type + '/' + data_type  + '_' + str(len_seq) + '_sequence_d.csv'
     elif depth == 'False':
-        save_path = dir_name + cfg.CSV_DATASET_PATH + '/' + data_type + '/' + data_type +  '_' + str(len_seq) + '_sequence.csv'
+        save_path = dir_name + cfg.CSV_DATASET_PATH + 'nodepth/' + data_type + '/' + data_type +  '_' + str(len_seq) + '_sequence.csv'
     else:
-        print('Choose True or False')
+        print('Choose if --depth is True or False')
         exit()
 
     with open(save_path, 'w') as csvfile:
@@ -55,11 +55,11 @@ def crete_csv_sequence(seq_path, depth, data_type, len_seq):
                             if (os.path.exists(img_path) and os.path.exists(depth_path)):
                                 lines = [path, img_path, depth_path, cord]
                                 filewriter.writerow(lines)
-                        else: 
+                        else:      
                             
                             img_path = path + "left/left" + n + ".png"
                             
-                            if (os.path.exists(img_path) and os.path.exists(depth_path)):
+                            if (os.path.exists(img_path)):
                                 lines = [path, img_path, cord]
                                 filewriter.writerow(lines)
                 else:
